@@ -1,0 +1,7 @@
+
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: camCenter
+  viewportCenter: [ 0, 0, -1 ]
+  background: [ 0.70, 0.80, 1.00 ]

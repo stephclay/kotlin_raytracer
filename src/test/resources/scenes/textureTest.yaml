@@ -1,0 +1,7 @@
+
+textures:
+  solidBlue: { SolidColor: { color: [0, 0, 1] } }
+  checkerColor: { Checker: { scale: 0.25, evenColor: purple, oddColor: [1, 0, 0] } }
+  checkerTex: { Checker: { scale: 0.5, even: { Image: { filename: "xyz.jpg"} }, odd: solidBlue } }
+  image: { Image: { filename: "abc.jpg" } }
+  perlinTex: { Noise: { scale: 4 } }

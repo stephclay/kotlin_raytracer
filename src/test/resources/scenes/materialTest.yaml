@@ -1,0 +1,7 @@
+
+materials:
+  lambertianAlbedo: { Lambertian: { albedo: [1, 0, 0] } }
+  lambertianTexture: { Lambertian: { texture: { SolidColor: { color: [0, 1, 0] } } } }
+  dielectric: { Dielectric: { refractionIndex: 2.0 } }
+  metal: { Metal: { fuzz: 3.0, albedo: blue } }
+  light: { DiffuseLight: { texture: { SolidColor: { color: [0, 0, 1] } } } }
