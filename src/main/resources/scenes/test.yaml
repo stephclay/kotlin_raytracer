@@ -1,0 +1,23 @@
+
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: [ 0, 0, 0 ]
+  viewportCenter: [ 0, 0, -1 ]
+  background: [ 0.70, 0.80, 1.00 ]
+
+points:
+  c1: [ -0.785398, 0, -1 ]
+  c2: [ 0.785398, 0, -1 ]
+
+textures:
+  solidBlue: { SolidColor: { color: [0, 0, 1] } }
+  perlinTex: { Noise: { scale: 4 } }
+
+materials:
+  matLeft: { Lambertian: { texture: solidBlue } }
+  matRight: { Lambertian: { texture: perlinTex } }
+
+world:
+  - Sphere: { center: c1, radius: 0.785398, material: matLeft }
+  - Sphere: { center: c2, radius: 0.785398, material: matRight }

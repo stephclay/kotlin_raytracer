@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.deser.ContextualDeserializer
 import com.wombatsw.raytracing.scene.InlineRef
 import com.wombatsw.raytracing.scene.NamedRef
 import com.wombatsw.raytracing.scene.Ref
+import com.wombatsw.raytracing.scene.Resolvable
 
 
 /**
@@ -38,7 +39,10 @@ private class TypedRefDeserializer(val valueType: JavaType) : JsonDeserializer<R
         val node = p.codec.readTree<JsonNode>(p)
         return when {
             node.isTextual -> NamedRef(node.asText())
-            node.isObject || node.isArray -> InlineRef<Any>(ctxt.readValue(node.traverse(p.codec), valueType))
+            node.isObject || node.isArray -> InlineRef<Resolvable<*>>(
+                ctxt.readValue(node.traverse(p.codec), valueType)
+            )
+
             else -> error("Invalid reference: $valueType")
         }
     }

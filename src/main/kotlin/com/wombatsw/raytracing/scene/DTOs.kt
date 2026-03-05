@@ -1,5 +1,7 @@
 package com.wombatsw.raytracing.scene
 
+import com.wombatsw.raytracing.scene.dto.TripletDTO
+
 // Scene file DTOs. All DTO parameters which can refer to other objects in the scene will use a reference
 // instead of the actual class. Reference resolution is handled after the scene objects are loaded.
 
@@ -42,9 +44,11 @@ data class CameraDTO(
     val viewUp: Ref<TripletDTO> = InlineRef(TripletDTO(listOf(0.0, 1.0, 0.0)))
 )
 
-data class TripletDTO(val list: List<Double>)
-
-sealed class TextureDTO
+sealed class TextureDTO: Resolvable<Any> {
+    override fun resolve(ctx: ResolutionContext): Any {
+        TODO("Not yet implemented")
+    }
+}
 data class SolidColorDTO(val color: Ref<TripletDTO>) : TextureDTO()
 data class CheckerTextureDTO(
     val scale: Double, val even: Ref<TextureDTO>?, val odd: Ref<TextureDTO>?,
@@ -54,7 +58,11 @@ data class CheckerTextureDTO(
 data class ImageTextureDTO(val filename: String) : TextureDTO()
 data class NoiseTextureDTO(val scale: Double) : TextureDTO()
 
-sealed class MaterialDTO
+sealed class MaterialDTO: Resolvable<Any> {
+    override fun resolve(ctx: ResolutionContext): Any {
+        TODO("Not yet implemented")
+    }
+}
 data class LambertianDTO(val albedo: Ref<TripletDTO>?, val texture: Ref<TextureDTO>?) : MaterialDTO()
 data class DielectricDTO(val refractionIndex: Double) : MaterialDTO()
 data class MetalDTO(val albedo: Ref<TripletDTO>, val fuzz: Double) : MaterialDTO()

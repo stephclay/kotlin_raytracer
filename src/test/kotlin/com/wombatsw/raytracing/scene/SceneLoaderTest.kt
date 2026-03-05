@@ -1,5 +1,6 @@
 package com.wombatsw.raytracing.scene
 
+import com.wombatsw.raytracing.scene.dto.TripletDTO
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
