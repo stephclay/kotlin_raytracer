@@ -8,7 +8,7 @@ import kotlin.test.assertNotNull
 
 class TripletDTOTest {
     @Test
-    fun testResolve() {
+    fun `TripletDTO should resolve to a Triplet`() {
         val ctx = ResolutionContext(SceneDTO())
         val dto = TripletDTO(listOf(1.0, 2.0, 3.0))
 

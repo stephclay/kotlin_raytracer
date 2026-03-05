@@ -2,7 +2,9 @@ package com.wombatsw.raytracing.scene
 
 import com.wombatsw.raytracing.model.Color
 import com.wombatsw.raytracing.model.Point
+import com.wombatsw.raytracing.model.Texture
 import com.wombatsw.raytracing.model.Vector
+import com.wombatsw.raytracing.scene.dto.TextureDTO
 import com.wombatsw.raytracing.scene.dto.TripletDTO
 
 
@@ -46,10 +48,12 @@ class ResolutionContext(sceneDTO: SceneDTO) {
     val colors: Resolver<TripletDTO, Color> = Resolver(sceneDTO.colors, "color")
     val vectors: Resolver<TripletDTO, Vector> = Resolver(sceneDTO.vectors, "vector")
     val points: Resolver<TripletDTO, Point> = Resolver(sceneDTO.points, "point")
+    val textures: Resolver<TextureDTO, Texture> = Resolver(sceneDTO.textures, "texture")
 
     fun resolveColor(ref: Ref<TripletDTO>): Color = resolve(ref, colors)
     fun resolveVector(ref: Ref<TripletDTO>): Vector = resolve(ref, vectors)
     fun resolvePoint(ref: Ref<TripletDTO>): Point = resolve(ref, points)
+    fun resolveTexture(ref: Ref<TextureDTO>): Texture = resolve(ref, textures)
 
     private fun <D : Resolvable<T>, T> resolve(ref: Ref<D>, resolver: Resolver<D, T>): T {
         return resolver.resolve(this, ref)

@@ -1,20 +1,20 @@
 package com.wombatsw.raytracing.scene
 
-import com.wombatsw.raytracing.scene.dto.TripletDTO
+import com.wombatsw.raytracing.scene.dto.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class SceneLoaderTest {
     @Test
-    fun testLoadCamera() {
+    fun `CameaDTO data should load from file`() {
         val scene = loadScene("/scenes/cameraTest.yaml")
 
         assertEquals(NamedRef("camCenter"), scene.camera.cameraCenter)
     }
 
     @Test
-    fun testLoadTriplets() {
+    fun `Colors, points, and vectors should load from file`() {
         val scene = loadScene("/scenes/tripletTest.yaml")
 
         assertEquals(1, scene.points.size)
@@ -27,7 +27,7 @@ class SceneLoaderTest {
     }
 
     @Test
-    fun testLoadTextures() {
+    fun `Textures should load from file`() {
         val scene = loadScene("/scenes/textureTest.yaml")
         assertEquals(5, scene.textures.size)
 
@@ -52,7 +52,7 @@ class SceneLoaderTest {
     }
 
     @Test
-    fun testLoadMaterials() {
+    fun `Materials should load from file`() {
         val scene = loadScene("/scenes/materialTest.yaml")
         assertEquals(5, scene.materials.size)
 
@@ -71,7 +71,7 @@ class SceneLoaderTest {
     }
 
     @Test
-    fun testLoadWorld() {
+    fun `World objects should load from file`() {
         val scene = loadScene("/scenes/worldTest.yaml")
         assertEquals(1, scene.world.size)
 

@@ -1,98 +1,132 @@
 package com.wombatsw.raytracing.scene
 
+import com.wombatsw.raytracing.model.Color
+import com.wombatsw.raytracing.model.SolidColor
 import com.wombatsw.raytracing.model.Triplet
+import com.wombatsw.raytracing.scene.dto.SolidColorDTO
 import com.wombatsw.raytracing.scene.dto.TripletDTO
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotNull
 
 class ResolverTest {
+    val tripletDTOX = TripletDTO(listOf(1.0, 0.0, 0.0))
+    val tripletDTOY = TripletDTO(listOf(0.0, 1.0, 0.0))
+    val tripletDTOZ = TripletDTO(listOf(0.0, 0.0, 1.0))
+    val tripletX = tripletFromDTO(tripletDTOX)
+    val tripletY = tripletFromDTO(tripletDTOY)
+    val tripletZ = tripletFromDTO(tripletDTOZ)
+
+    private fun tripletFromDTO(tripletDTO: TripletDTO): Triplet =
+        Triplet(tripletDTO.list[0], tripletDTO.list[1], tripletDTO.list[2])
+
     @Test
-    fun testResolveColorNamed() {
+    fun `Color should resolve from named Ref`() {
         val ctx = createContext()
 
         val color = ctx.resolveColor(NamedRef("c1"))
-        validateTriplet(color, 1.0, 0.0, 0.0)
+        assertEquals(tripletX, color)
     }
 
     @Test
-    fun testResolveColorInline() {
+    fun `Color should resolve from inline Ref`() {
         val ctx = createContext()
 
-        val color = ctx.resolveColor(InlineRef(TripletDTO(listOf(2.0, 0.0, 0.0))))
-        validateTriplet(color, 2.0, 0.0, 0.0)
+        val color = ctx.resolveColor(InlineRef(TripletDTO(listOf(0.0, 1.0, 0.0))))
+        assertEquals(tripletY, color)
     }
 
     @Test
-    fun testResolveColorNotFound() {
-        val ex = assertFailsWith<IllegalArgumentException>("Expected exception for missing color") {
+    fun `Color resolution should fail for nonexistent named Ref`() {
+        assertFailsWith<IllegalArgumentException>("Expected exception for missing color") {
             val ctx = createContext()
             ctx.resolveColor(NamedRef("c2"))
         }
     }
 
     @Test
-    fun testResolveVectorNamed() {
+    fun `Vector should resolve from named Ref`() {
         val ctx = createContext()
 
         val vector = ctx.resolveVector(NamedRef("v1"))
-        validateTriplet(vector, 0.0, 1.0, 0.0)
+        assertEquals(tripletY, vector)
     }
 
     @Test
-    fun testResolveVectorInline() {
+    fun `Vector should resolve from inline Ref`() {
         val ctx = createContext()
 
-        val vector = ctx.resolveVector(InlineRef(TripletDTO(listOf(2.0, 0.0, 0.0))))
-        validateTriplet(vector, 2.0, 0.0, 0.0)
+        val vector = ctx.resolveVector(InlineRef(TripletDTO(listOf(0.0, 0.0, 1.0))))
+        assertEquals(tripletZ, vector)
     }
 
     @Test
-    fun testResolveVectorNotFound() {
-        val ex = assertFailsWith<IllegalArgumentException>("Expected exception for missing vector") {
+    fun `Vector resolution should fail for nonexistent named Ref`() {
+        assertFailsWith<IllegalArgumentException>("Expected exception for missing vector") {
             val ctx = createContext()
             ctx.resolveVector(NamedRef("v2"))
         }
     }
 
     @Test
-    fun testResolvePointNamed() {
+    fun `Point should resolve from named Ref`() {
         val ctx = createContext()
 
         val point = ctx.resolvePoint(NamedRef("p1"))
-        validateTriplet(point, 0.0, 0.0, 1.0)
+        assertEquals(tripletZ, point)
     }
 
     @Test
-    fun testResolvePointInline() {
+    fun `Point should resolve from inline Ref`() {
         val ctx = createContext()
 
-        val point = ctx.resolvePoint(InlineRef(TripletDTO(listOf(2.0, 0.0, 0.0))))
-        validateTriplet(point, 2.0, 0.0, 0.0)
+        val point = ctx.resolvePoint(InlineRef(TripletDTO(listOf(1.0, 0.0, 0.0))))
+        assertEquals(tripletX, point)
     }
 
     @Test
-    fun testResolvePointNotFound() {
-        val ex = assertFailsWith<IllegalArgumentException>("Expected exception for missing point") {
+    fun `Point resolution should fail for nonexistent named Ref`() {
+        assertFailsWith<IllegalArgumentException>("Expected exception for missing point") {
             val ctx = createContext()
             ctx.resolvePoint(NamedRef("p2"))
         }
     }
 
+    @Test
+    fun `Texture should resolve from named Ref`() {
+        val ctx = createContext()
+
+        val texture = ctx.resolveTexture(NamedRef("t1"))
+        assertEquals(SolidColor(Color(1.0, 0.0, 0.0)), texture)
+    }
+
+    @Test
+    fun `Texture should resolve from inline Ref`() {
+        val ctx = createContext()
+
+        val texture = ctx.resolveTexture(InlineRef(SolidColorDTO(NamedRef("c1"))))
+        assertEquals(SolidColor(Color(1.0, 0.0, 0.0)), texture)
+    }
+
+    @Test
+    fun `Texture resolution should fail for nonexistent named Ref`() {
+        val ex = assertFailsWith<IllegalArgumentException>("Expected exception for missing texture") {
+            val ctx = createContext()
+            ctx.resolvePoint(NamedRef("t2"))
+        }
+    }
+
     fun validateTriplet(triplet: Triplet, x: Double, y: Double, z: Double) {
-        assertNotNull(triplet)
-        assertEquals(x, triplet.x)
-        assertEquals(y, triplet.y)
-        assertEquals(z, triplet.z)
+        assertEquals(Triplet(x, y, z), triplet)
     }
 
     fun createContext(): ResolutionContext {
         val sceneDTO = SceneDTO(
             CameraDTO(),
-            mapOf("c1" to TripletDTO(listOf(1.0, 0.0, 0.0))),
-            mapOf("v1" to TripletDTO(listOf(0.0, 1.0, 0.0))),
-            mapOf("p1" to TripletDTO(listOf(0.0, 0.0, 1.0)))
+            mapOf("c1" to tripletDTOX),
+            mapOf("v1" to tripletDTOY),
+            mapOf("p1" to tripletDTOZ),
+            mapOf("t1" to SolidColorDTO(NamedRef("c1")))
         )
         return ResolutionContext(sceneDTO)
     }

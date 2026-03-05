@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.wombatsw.raytracing.scene.deserializer.*
+import com.wombatsw.raytracing.scene.dto.TextureDTO
 import com.wombatsw.raytracing.scene.dto.TripletDTO
 import java.io.FileReader
 import java.io.Reader
@@ -28,7 +29,8 @@ class SceneLoader {
     /**
      * Load a scene from the specified YAML file
      *
-     * @return The SceneDTO
+     * @param[fileName] The file containing the scene data
+     * @return The [SceneDTO]
      */
     fun loadScene(fileName: String): SceneDTO {
         return loadScene(FileReader(fileName))
@@ -37,7 +39,8 @@ class SceneLoader {
     /**
      * Load a scene from the specified Reader containing a YAML description
      *
-     * @return The SceneDTO
+     * @param[reader] The reader containing the scene data
+     * @return The [SceneDTO]
      */
     fun loadScene(reader: Reader): SceneDTO {
         return mapper.readValue(reader, SceneDTO::class.java)

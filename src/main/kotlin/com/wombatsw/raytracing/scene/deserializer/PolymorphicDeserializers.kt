@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
 import com.wombatsw.raytracing.scene.*
+import com.wombatsw.raytracing.scene.dto.*
 
 /**
  * TextureDTO deserializer
