@@ -2,6 +2,7 @@ package com.wombatsw.raytracing.scene
 
 import com.wombatsw.raytracing.model.*
 import com.wombatsw.raytracing.scene.dto.MaterialDTO
+import com.wombatsw.raytracing.scene.dto.SceneDTO
 import com.wombatsw.raytracing.scene.dto.TextureDTO
 import com.wombatsw.raytracing.scene.dto.TripletDTO
 

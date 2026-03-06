@@ -1,7 +1,6 @@
 package com.wombatsw.raytracing.scene.dto
 
 import com.wombatsw.raytracing.scene.ResolutionContext
-import com.wombatsw.raytracing.scene.SceneDTO
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -19,5 +18,4 @@ class TripletDTOTest {
         assertEquals(2.0, triplet.y)
         assertEquals(3.0, triplet.z)
     }
-
 }

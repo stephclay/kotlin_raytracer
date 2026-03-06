@@ -3,9 +3,7 @@ package com.wombatsw.raytracing.scene
 import com.wombatsw.raytracing.model.Lambertian
 import com.wombatsw.raytracing.model.SolidColor
 import com.wombatsw.raytracing.model.Triplet
-import com.wombatsw.raytracing.scene.dto.LambertianDTO
-import com.wombatsw.raytracing.scene.dto.SolidColorDTO
-import com.wombatsw.raytracing.scene.dto.TripletDTO
+import com.wombatsw.raytracing.scene.dto.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
