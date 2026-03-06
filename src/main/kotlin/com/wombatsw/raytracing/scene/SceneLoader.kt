@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.wombatsw.raytracing.scene.deserializer.*
+import com.wombatsw.raytracing.scene.dto.MaterialDTO
 import com.wombatsw.raytracing.scene.dto.TextureDTO
 import com.wombatsw.raytracing.scene.dto.TripletDTO
 import java.io.FileReader

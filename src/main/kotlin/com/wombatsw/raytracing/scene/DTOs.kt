@@ -1,5 +1,6 @@
 package com.wombatsw.raytracing.scene
 
+import com.wombatsw.raytracing.scene.dto.MaterialDTO
 import com.wombatsw.raytracing.scene.dto.TextureDTO
 import com.wombatsw.raytracing.scene.dto.TripletDTO
 
@@ -44,17 +45,6 @@ data class CameraDTO(
     val viewportCenter: Ref<TripletDTO> = InlineRef(TripletDTO(listOf(0.0, 0.0, -1.0))),
     val viewUp: Ref<TripletDTO> = InlineRef(TripletDTO(listOf(0.0, 1.0, 0.0)))
 )
-
-sealed class MaterialDTO : Resolvable<Any> {
-    override fun resolve(ctx: ResolutionContext): Any {
-        TODO("Not yet implemented")
-    }
-}
-
-data class LambertianDTO(val albedo: Ref<TripletDTO>?, val texture: Ref<TextureDTO>?) : MaterialDTO()
-data class DielectricDTO(val refractionIndex: Double) : MaterialDTO()
-data class MetalDTO(val albedo: Ref<TripletDTO>, val fuzz: Double) : MaterialDTO()
-data class DiffuseLightDTO(val texture: Ref<TextureDTO>) : MaterialDTO()
 
 sealed class ShapeDTO(open val material: Ref<MaterialDTO>)
 data class SphereDTO(val center: Ref<TripletDTO>, val radius: Double, override val material: Ref<MaterialDTO>) :

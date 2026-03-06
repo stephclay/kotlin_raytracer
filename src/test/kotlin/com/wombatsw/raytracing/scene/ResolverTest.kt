@@ -1,8 +1,9 @@
 package com.wombatsw.raytracing.scene
 
-import com.wombatsw.raytracing.model.Color
+import com.wombatsw.raytracing.model.Lambertian
 import com.wombatsw.raytracing.model.SolidColor
 import com.wombatsw.raytracing.model.Triplet
+import com.wombatsw.raytracing.scene.dto.LambertianDTO
 import com.wombatsw.raytracing.scene.dto.SolidColorDTO
 import com.wombatsw.raytracing.scene.dto.TripletDTO
 import kotlin.test.Test
@@ -97,7 +98,7 @@ class ResolverTest {
         val ctx = createContext()
 
         val texture = ctx.resolveTexture(NamedRef("t1"))
-        assertEquals(SolidColor(Color(1.0, 0.0, 0.0)), texture)
+        assertEquals(SolidColor(tripletX), texture)
     }
 
     @Test
@@ -105,19 +106,39 @@ class ResolverTest {
         val ctx = createContext()
 
         val texture = ctx.resolveTexture(InlineRef(SolidColorDTO(NamedRef("c1"))))
-        assertEquals(SolidColor(Color(1.0, 0.0, 0.0)), texture)
+        assertEquals(SolidColor(tripletX), texture)
     }
 
     @Test
     fun `Texture resolution should fail for nonexistent named Ref`() {
         val ex = assertFailsWith<IllegalArgumentException>("Expected exception for missing texture") {
             val ctx = createContext()
-            ctx.resolvePoint(NamedRef("t2"))
+            ctx.resolveTexture(NamedRef("t2"))
         }
     }
 
-    fun validateTriplet(triplet: Triplet, x: Double, y: Double, z: Double) {
-        assertEquals(Triplet(x, y, z), triplet)
+    @Test
+    fun `Material should resolve from named Ref`() {
+        val ctx = createContext()
+
+        val material = ctx.resolveMaterial(NamedRef("m1"))
+        assertEquals(Lambertian(SolidColor(tripletX)), material)
+    }
+
+    @Test
+    fun `Material should resolve from inline Ref`() {
+        val ctx = createContext()
+
+        val material = ctx.resolveMaterial(InlineRef(LambertianDTO(null, NamedRef("t1"))))
+        assertEquals(Lambertian(SolidColor(tripletX)), material)
+    }
+
+    @Test
+    fun `Material resolution should fail for nonexistent named Ref`() {
+        val ex = assertFailsWith<IllegalArgumentException>("Expected exception for missing material") {
+            val ctx = createContext()
+            ctx.resolveMaterial(NamedRef("t2"))
+        }
     }
 
     fun createContext(): ResolutionContext {
@@ -126,7 +147,8 @@ class ResolverTest {
             mapOf("c1" to tripletDTOX),
             mapOf("v1" to tripletDTOY),
             mapOf("p1" to tripletDTOZ),
-            mapOf("t1" to SolidColorDTO(NamedRef("c1")))
+            mapOf("t1" to SolidColorDTO(NamedRef("c1"))),
+            mapOf("m1" to LambertianDTO(null, NamedRef("t1")))
         )
         return ResolutionContext(sceneDTO)
     }
