@@ -8,6 +8,7 @@ typealias Color = Triplet
  * Common class for points, vectors, and colors
  */
 class Triplet(val x: Double, val y: Double, val z: Double) {
+    constructor(x: Number, y: Number, z: Number) : this(x.toDouble(), y.toDouble(), z.toDouble())
 
     override fun toString(): String {
         return "($x, $y, $z)"
