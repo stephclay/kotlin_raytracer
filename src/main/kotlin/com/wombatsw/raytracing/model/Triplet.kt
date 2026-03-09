@@ -10,6 +10,9 @@ typealias Color = Triplet
 class Triplet(val x: Double, val y: Double, val z: Double) {
     constructor(x: Number, y: Number, z: Number) : this(x.toDouble(), y.toDouble(), z.toDouble())
 
+    operator fun plus(a: Triplet): Triplet = Triplet(x + a.x, y + a.y, z + a.z)
+    operator fun minus(a: Triplet): Triplet = Triplet(x - a.x, y - a.y, z - a.z)
+
     override fun toString(): String {
         return "($x, $y, $z)"
     }

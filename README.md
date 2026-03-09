@@ -12,6 +12,10 @@ and its follow-on cources located at the following URLs:
   idiomatic as some people might expect.
 * After some profiling, ThreadLocalRandom was chosen as the RNG instead of SecureRandom, which
   has much better performance, even for non-threaded cases.
+* The model and DTO classes are all data classes, but also contain a few methods as well, despite
+  this not being idiomatic Kotlin. This is done because it made more sense than having to
+  manually implement equals and hashcode methods for every class. This also led to much simpler
+  testing as a result.
 
 ## AI Notice
 * None of the code in the application was written by AI, since the point was to further
