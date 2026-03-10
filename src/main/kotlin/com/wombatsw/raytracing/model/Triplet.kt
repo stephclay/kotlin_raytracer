@@ -12,6 +12,29 @@ class Triplet(val x: Double, val y: Double, val z: Double) {
 
     operator fun plus(a: Triplet): Triplet = Triplet(x + a.x, y + a.y, z + a.z)
     operator fun minus(a: Triplet): Triplet = Triplet(x - a.x, y - a.y, z - a.z)
+    operator fun times(a: Double): Triplet = Triplet(x * a, y * a, z * a)
+    operator fun times(a: Number): Triplet = times(a.toDouble())
+    operator fun unaryMinus() = Triplet(-x, -y, -z)
+
+    /**
+     * Take the dot product with supplied triplet
+     *
+     * @param[a] The other triplet
+     * @return The dot product
+     */
+    fun dot(a: Triplet) = x * a.x + y * a.y + z * a.z
+
+    /**
+     * Take the cross product with supplied triplet
+     *
+     * @param[a] The other triplet
+     * @return The cross product
+     */
+    fun cross(a: Triplet) = Triplet(
+        y * a.z - z * a.y,
+        z * a.x - x * a.z,
+        x * a.y - y * a.x
+    )
 
     override fun toString(): String {
         return "($x, $y, $z)"
