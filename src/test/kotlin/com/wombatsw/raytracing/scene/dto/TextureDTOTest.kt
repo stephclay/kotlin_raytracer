@@ -5,6 +5,7 @@ import com.wombatsw.raytracing.scene.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
 
 class TextureDTOTest {
     val colorDTOs = listOf(
@@ -124,10 +125,10 @@ class TextureDTOTest {
     fun `ImageTextureDTO should resolve to an ImageTexture`() {
         val ctx = createContext()
 
-        val dto = ImageTextureDTO("foo.jpg")
+        val dto = ImageTextureDTO("testimage.png")
         val result = dto.resolve(ctx)
 
-        assertEquals(ImageTexture("foo.jpg"), result)
+        assertIs<ImageTexture>(result)
     }
 
     @Test

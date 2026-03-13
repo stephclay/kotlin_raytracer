@@ -1,5 +1,7 @@
 package com.wombatsw.raytracing.model
 
+import com.wombatsw.raytracing.math.RandomUtils.Companion.randomDouble
+
 typealias Point = Triplet
 typealias Vector = Triplet
 typealias Color = Triplet
@@ -48,5 +50,14 @@ class Triplet(val x: Double, val y: Double, val z: Double) {
 
     override fun hashCode(): Int {
         return x.hashCode() * 509 + y.hashCode() * 37 + z.hashCode()
+    }
+
+    companion object {
+        fun random(min: Number, max: Number): Triplet =
+            Triplet(
+                randomDouble(min, max),
+                randomDouble(min, max),
+                randomDouble(min, max)
+            )
     }
 }

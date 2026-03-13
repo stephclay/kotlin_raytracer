@@ -1,6 +1,7 @@
 package com.wombatsw.raytracing.model
 
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class TripletTest {
@@ -72,5 +73,18 @@ class TripletTest {
 
         val result = t1.cross(t2)
         assertEquals(Triplet(0, 0, 0), result)
+    }
+
+    @Test
+    fun `new random triplet should be within provided bounds`() {
+        val range = 0.0001..0.0002
+
+        repeat(100) {
+            val triplet = Triplet.random(range.start, range.endInclusive)
+
+            assertContains(range, triplet.x)
+            assertContains(range, triplet.y)
+            assertContains(range, triplet.z)
+        }
     }
 }
