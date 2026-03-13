@@ -6,6 +6,9 @@ typealias Point = Triplet
 typealias Vector = Triplet
 typealias Color = Triplet
 
+val BLACK = Color(0, 0, 0)
+val WHITE = Color(1, 1, 1)
+
 /**
  * Common class for points, vectors, and colors
  */

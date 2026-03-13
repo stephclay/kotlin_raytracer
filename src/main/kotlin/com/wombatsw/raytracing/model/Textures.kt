@@ -1,7 +1,6 @@
 package com.wombatsw.raytracing.model
 
 import com.wombatsw.raytracing.EPSILON
-import com.wombatsw.raytracing.IMG_MAP_INTERVAL
 import com.wombatsw.raytracing.math.Perlin
 import java.awt.image.BufferedImage
 import java.io.File
@@ -66,9 +65,11 @@ data class ImageTexture(val filename: String) : Texture() {
         image = img
     }
 
+    private val mappingInterval = Interval(0, 1.0 - EPSILON)
+
     override fun value(p: Point, u: Double, v: Double): Color {
-        val x = (IMG_MAP_INTERVAL.clamp(u) * image.width).toInt()
-        val y = ((1.0 - EPSILON - IMG_MAP_INTERVAL.clamp(v)) * image.height).toInt()
+        val x = (mappingInterval.clamp(u) * image.width).toInt()
+        val y = ((1.0 - EPSILON - mappingInterval.clamp(v)) * image.height).toInt()
         val color = image.getRGB(x, y)
 
         return Color(

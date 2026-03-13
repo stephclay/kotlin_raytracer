@@ -1,5 +1,6 @@
 package com.wombatsw.raytracing.scene
 
+import com.wombatsw.raytracing.model.Color
 import com.wombatsw.raytracing.model.Lambertian
 import com.wombatsw.raytracing.model.SolidColor
 import com.wombatsw.raytracing.model.Triplet
@@ -33,6 +34,14 @@ class ResolverTest {
 
         val color = ctx.resolveColor(InlineRef(TripletDTO(listOf(0.0, 1.0, 0.0))))
         assertEquals(tripletY, color)
+    }
+
+    @Test
+    fun `Color should resolve from a named default color`() {
+        val ctx = createContext()
+
+        val color = ctx.resolveColor(NamedRef("cyan"))
+        assertEquals(Color(0, 1, 1), color)
     }
 
     @Test

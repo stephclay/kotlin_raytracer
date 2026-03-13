@@ -44,7 +44,7 @@ class Resolver<D : Resolvable<T>, T>(
  * @param[sceneDTO] The scene data
  */
 class ResolutionContext(sceneDTO: SceneDTO) {
-    val colors: Resolver<TripletDTO, Color> = Resolver(sceneDTO.colors, "color")
+    val colors: Resolver<TripletDTO, Color> = Resolver(colorsWithDefaults(sceneDTO), "color")
     val vectors: Resolver<TripletDTO, Vector> = Resolver(sceneDTO.vectors, "vector")
     val points: Resolver<TripletDTO, Point> = Resolver(sceneDTO.points, "point")
     val textures: Resolver<TextureDTO, Texture> = Resolver(sceneDTO.textures, "texture")
@@ -58,6 +58,24 @@ class ResolutionContext(sceneDTO: SceneDTO) {
 
     private fun <D : Resolvable<T>, T> resolve(ref: Ref<D>, resolver: Resolver<D, T>): T {
         return resolver.resolve(this, ref)
+    }
+
+    /**
+     * Load the default colors and override them with any that are specified explicitly in the scene description
+     *
+     * @param[sceneDTO] The scene description
+     * @return A [Map] from color name to its corresponding [TripletDTO]
+     */
+    private fun colorsWithDefaults(sceneDTO: SceneDTO): Map<String, TripletDTO> {
+        val colorsWithDefaults: Map<String, TripletDTO> = buildMap {
+            DefaultColors.entries.forEach { entry ->
+                put(entry.colorName, TripletDTO(listOf(entry.color.x, entry.color.y, entry.color.z)))
+            }
+
+            putAll(sceneDTO.colors)
+        }
+
+        return colorsWithDefaults
     }
 }
 
