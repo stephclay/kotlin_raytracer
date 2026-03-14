@@ -175,4 +175,14 @@ class TripletTest {
         assertEquals(181.toByte(), color.greenByte())
         assertEquals(221.toByte(), color.blueByte())
     }
+
+    @Test
+    fun `average should average each of the components`() {
+        val c1 = Color(1, 2, 3)
+        val c2 = Color(2, -2, 3)
+        val c3 = Color(3, -3, 0)
+
+        val result = Color.average(listOf(c1, c2, c3))
+        assertEquals(Color(2, -1, 2), result)
+    }
 }

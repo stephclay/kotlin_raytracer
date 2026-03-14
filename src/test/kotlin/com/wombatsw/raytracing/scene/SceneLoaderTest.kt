@@ -83,7 +83,7 @@ class SceneLoaderTest {
         val scene: SceneDTO
         javaClass.getResourceAsStream(resource).use {
             val sceneLoader = SceneLoader()
-            scene = sceneLoader.loadScene(it!!.reader())
+            scene = sceneLoader.loadSceneDTO(it!!.reader())
         }
 
         assertNotNull(scene)

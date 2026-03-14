@@ -162,5 +162,23 @@ class Triplet(val x: Double, val y: Double, val z: Double) {
                 }
             }
         }
+
+        /**
+         * Compute the average of the provided triplets
+         *
+         * @param[values] The list of triplets to average
+         * @return The averaged triplet
+         */
+        fun average(values: List<Triplet>): Triplet {
+            var x = 0.0
+            var y = 0.0
+            var z = 0.0
+            for (v in values) {
+                x += v.x
+                y += v.y
+                z += v.z
+            }
+            return Triplet(x / values.size, y / values.size, z / values.size)
+        }
     }
 }
