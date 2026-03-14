@@ -95,19 +95,15 @@ class TripletTest {
         assertEquals(Triplet(0, 0, 0), result)
     }
 
-    //    fun lengthSquared() = dot(this)
-    //    fun length() = sqrt(lengthSquared())
-    //    fun normalize() = this / length()
-    // nearZero
     @Test
-    fun `lengthSquared should return the square of the euclidean distance`() {
+    fun `lengthSquared should return the square of the Euclidean distance`() {
         val t1 = Triplet(x = 2, y = 2, z = 3)
 
         assertEquals(17.0, t1.lengthSquared())
     }
 
     @Test
-    fun `length should return the euclidean distance`() {
+    fun `length should return the Euclidean distance`() {
         val t1 = Triplet(x = 2, y = 3, z = 6)
 
         assertEquals(7.0, t1.length())
@@ -131,7 +127,7 @@ class TripletTest {
     }
 
     @Test
-    fun testReflect() {
+    fun `reflect should return a reflected vector relative to a given normal`() {
         val v1 = Vector(1.0, 2.0, 3.0)
         val n = Vector(0.0, 1.0, 0.0)
 
@@ -140,7 +136,7 @@ class TripletTest {
     }
 
     @Test
-    fun testRefract() {
+    fun `refract should return a refracted vector relative to a given normal`() {
         val v1 = Vector(2.0, 2.0, 1 / 1.5)
         val n = Vector(0.0, 1.0, 0.0)
 
@@ -162,5 +158,21 @@ class TripletTest {
             assertContains(range, triplet.y)
             assertContains(range, triplet.z)
         }
+    }
+
+    @Test
+    fun `colors should convert to appropriate byte values`() {
+        assertEquals(0.toByte(), BLACK.redByte())
+        assertEquals(0.toByte(), BLACK.greenByte())
+        assertEquals(0.toByte(), BLACK.blueByte())
+
+        assertEquals(255.toByte(), WHITE.redByte())
+        assertEquals(255.toByte(), WHITE.greenByte())
+        assertEquals(255.toByte(), WHITE.blueByte())
+
+        val color = Color(0.25, 0.5, 0.75)
+        assertEquals(127.toByte(), color.redByte())
+        assertEquals(181.toByte(), color.greenByte())
+        assertEquals(221.toByte(), color.blueByte())
     }
 }

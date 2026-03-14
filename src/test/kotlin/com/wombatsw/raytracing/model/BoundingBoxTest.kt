@@ -1,9 +1,6 @@
 package com.wombatsw.raytracing.model
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class BoundingBoxTest {
     @Test
@@ -54,5 +51,25 @@ class BoundingBoxTest {
         assertTrue(bbox.x.size() > 0.0)
         assertTrue(bbox.y.size() > 0.0)
         assertTrue(bbox.z.size() > 0.0)
+    }
+
+    @Test
+    fun `should intersect from inside the box`() {
+        val ray = Ray(Point(0, 0, 0), Point(0.5, 0, 0))
+        val bbox = BoundingBox(Point(-1, -1, -1), Point(1, 1, 1))
+
+        val result = bbox.intersect(ray, Interval(0, 100))
+        assertNotNull(result)
+        assertEquals(Interval(0.0, 2.0), result)
+    }
+
+    @Test
+    fun `should intersect from outside the box`() {
+        val ray = Ray(Point(-2, 0, 0), Point(0.5, 0, 0))
+        val bbox = BoundingBox(Point(-1, -1, -1), Point(1, 1, 1))
+
+        val result = bbox.intersect(ray, Interval(0, 100))
+        assertNotNull(result)
+        assertEquals(Interval(2.0, 6.0), result)
     }
 }

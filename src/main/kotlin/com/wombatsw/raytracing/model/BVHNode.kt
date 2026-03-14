@@ -46,6 +46,16 @@ data class BVHNode(val nodes: Array<Node>, val start: Int, val end: Int) : Node 
 
     override fun boundingBox(): BoundingBox = bbox
 
+    override fun intersect(ray: Ray, tRange: Interval): Pair<Intersection, Material>? {
+        val rayInterval = bbox.intersect(ray, tRange) ?: return null
+
+        val leftIntersection = left.intersect(ray, rayInterval)
+        val closestT = leftIntersection?.first?.t ?: rayInterval.max
+
+        val rightIntersection = right.intersect(ray, Interval(rayInterval.min, closestT))
+        return rightIntersection ?: leftIntersection
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         return if (other is BVHNode) {

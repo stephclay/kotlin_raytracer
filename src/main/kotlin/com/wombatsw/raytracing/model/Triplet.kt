@@ -10,6 +10,27 @@ typealias Point = Triplet
 typealias Vector = Triplet
 typealias Color = Triplet
 
+/**
+ * @return the red byte value for this color
+ */
+fun Color.redByte(): Byte = toByte(x)
+
+/**
+ * @return the green byte value for this color
+ */
+fun Color.greenByte(): Byte = toByte(y)
+
+/**
+ * @return the blue byte value for this color
+ */
+fun Color.blueByte(): Byte = toByte(z)
+
+private val UNIT_INTERVAL = Interval(0, 1)
+private fun toByte(x: Double): Byte = (255.999 * UNIT_INTERVAL.clamp(gamma(x)))
+    .toInt().toByte()
+
+private fun gamma(x: Double): Double = if (x <= 0.0) 0.0 else sqrt(x)
+
 val BLACK = Color(0, 0, 0)
 val WHITE = Color(1, 1, 1)
 
@@ -52,16 +73,44 @@ class Triplet(val x: Double, val y: Double, val z: Double) {
         x * a.y - y * a.x
     )
 
+    /**
+     * @return the squared Euclidean length of this triplet
+     */
     fun lengthSquared() = dot(this)
+
+    /**
+     * @return the Euclidean length of this triplet
+     */
     fun length() = sqrt(lengthSquared())
+
+    /**
+     * @return the normalization of this triplet
+     */
     fun normalize() = this / length()
+
+    /**
+     * @return whether this triplet is very close to its origin (0, 0, 0)
+     */
     fun nearZero() = abs(x) < EPSILON &&
             abs(y) < EPSILON &&
             abs(z) < EPSILON
 
+    /**
+     * Determine the reflection of this vector (Triplet) against the provided normal
+     *
+     * @param[n] The normal of the reflection
+     * @return The reflected vector
+     */
     fun reflect(n: Vector): Vector =
         this - n * (2.0 * dot(n))
 
+    /**
+     * Determine the refraction of this vector (Triplet) against the provided normal
+     *
+     * @param[n] The normal of the refraction
+     * @param[etaRatio] Tje ratio of refraction indices
+     * @return The refracted vector
+     */
     fun refract(n: Vector, etaRatio: Double): Vector {
         // Compute the perpendicular component: rPerp = (rOrig + cosTheta * N) * etaRatio
         val cosTheta = min(1.0, -dot(n))
@@ -87,6 +136,13 @@ class Triplet(val x: Double, val y: Double, val z: Double) {
     }
 
     companion object {
+        /**
+         * Return a random triplet with component values in the specified range
+         *
+         * @param[min] The lower bound (inclusive)
+         * @param[max] The upper bound (exclusive)
+         * @return The new [Triplet]
+         */
         fun random(min: Number, max: Number): Triplet =
             Triplet(
                 randomDouble(min, max),
@@ -94,6 +150,9 @@ class Triplet(val x: Double, val y: Double, val z: Double) {
                 randomDouble(min, max)
             )
 
+        /**
+         * @return a random unit-length vector
+         */
         fun randomUnitVector(): Vector {
             while (true) {
                 val vector = random(-1, 1)
