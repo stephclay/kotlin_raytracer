@@ -1,0 +1,26 @@
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: [ -2, 2, 1 ]
+  background: [ 0.70, 0.80, 1.00 ]
+  fieldOfView: 20
+  viewportCenter: [ 0, 0, -1 ]
+  viewUp: [ 0, 1, 0 ]
+
+colors:
+  green: [ 0.0, 0.8, 0.0 ]
+  blue: [ 0.1, 0.2, 0.5 ]
+
+materials:
+  matGround: { Lambertian: { albedo: green } }
+  matCenter: { Lambertian: { albedo: blue } }
+  matLeft: { Dielectric: { refractionIndex: 1.5 } } # transparent
+  matBubble: { Dielectric: { refractionIndex: 0.666667 } }
+  matRight: { Metal: { albedo: white, fuzz: 0.1 } } # silver
+
+world:
+  - Sphere: { center: [ 0, -100.5, -1 ], radius: 100, material: matGround }
+  - Sphere: { center: [ 0, 0, -1.2 ], radius: 0.5, material: matCenter }
+  - Sphere: { center: [ -1, 0, -1 ], radius: 0.5, material: matLeft }
+  - Sphere: { center: [ -1, 0, -1 ], radius: 0.4, material: matBubble }
+  - Sphere: { center: [ 1, 0, -1 ], radius: 0.5, material: matRight }

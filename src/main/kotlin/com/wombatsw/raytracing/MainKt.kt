@@ -7,9 +7,16 @@ import java.io.File
 
 
 fun main() {
-    val sceneFile = "src/main/resources/scenes/test.yaml"
+    val scenes = arrayOf(
+        "src/main/resources/scenes/PerlinSpheres.yaml",
+        "src/main/resources/scenes/ThreeSpheres.yaml",
+        "src/main/resources/scenes/CheckerSpheres.yaml",
+        "src/main/resources/scenes/EarthScene.yaml",
+        "src/main/resources/scenes/test.yaml"
+    )
+
     val loader = SceneLoader()
-    val scene = loader.loadScene(sceneFile)
+    val scene = loader.loadScene(scenes[0])
 
     val renderer = Renderer(scene, 40, 20)
     val writer = PPMImageWriter()

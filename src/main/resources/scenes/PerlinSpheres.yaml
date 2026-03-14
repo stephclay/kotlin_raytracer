@@ -1,0 +1,20 @@
+
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: [ 13, 2, 3 ]
+  defocusAngle: 0
+  background: [ 0.70, 0.80, 1.00 ]
+  fieldOfView: 20
+  viewportCenter: [ 0, 0, 0 ]
+  viewUp: [ 0, 1, 0 ]
+
+textures:
+  perlinTex: { Noise: { scale: 4 } }
+
+materials:
+  perlinMat: { Lambertian: { texture: perlinTex } }
+
+world:
+  - Sphere: { center: [ 0, -1000, 0 ], radius: 1000, material: perlinMat }
+  - Sphere: { center: [ 0,     2, 0 ], radius:    2, material: perlinMat }

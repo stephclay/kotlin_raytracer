@@ -1,0 +1,18 @@
+
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: [ 0, 0, 12 ]
+  background: [ 0.70, 0.80, 1.00 ]
+  fieldOfView: 20
+  viewportCenter: [ 0, 0, 0 ]
+  viewUp: [ 0, 1, 0 ]
+
+textures:
+  earthTexture: { Image: { filename: "src/main/resources/earthmap.jpg" } }
+
+materials:
+  earthSurface: { Lambertian: { texture: earthTexture } }
+
+world:
+  - Sphere: { center: [ 0, 0, 0 ], radius: 2, material: earthSurface }

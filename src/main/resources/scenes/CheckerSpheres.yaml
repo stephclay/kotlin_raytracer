@@ -1,0 +1,24 @@
+
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: [ 13, 2, 3 ]
+  defocusAngle: 0
+  background: [ 0.70, 0.80, 1.00 ]
+  fieldOfView: 20
+  viewportCenter: [ 0, 0, 0 ]
+  viewUp: [ 0, 1, 0 ]
+
+colors:
+  purple: [ .4, .1, .4 ]
+  white: [ .9, .9, .9 ]
+
+textures:
+  checkerTex: { Checker: { scale: 0.32, evenColor: purple, oddColor: white } }
+
+materials:
+  checkerMat: { Lambertian: { texture: checkerTex } }
+
+world:
+  - Sphere: { center: [ 0, -10, 0 ], radius: 10, material: checkerMat }
+  - Sphere: { center: [ 0,  10, 0 ], radius: 10, material: checkerMat }
