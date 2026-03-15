@@ -7,7 +7,7 @@ import kotlin.test.assertNotNull
 
 class SceneLoaderTest {
     @Test
-    fun `CameaDTO data should load from file`() {
+    fun `CameraDTO data should load from file`() {
         val scene = loadScene("/scenes/cameraTest.yaml")
 
         assertEquals(NamedRef("camCenter"), scene.camera.cameraCenter)

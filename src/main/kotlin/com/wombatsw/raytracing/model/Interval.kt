@@ -3,6 +3,8 @@ package com.wombatsw.raytracing.model
 import kotlin.math.max
 import kotlin.math.min
 
+val UNIT_INTERVAL = Interval(0, 1)
+
 /**
  * Interval between 2 numeric values
  *

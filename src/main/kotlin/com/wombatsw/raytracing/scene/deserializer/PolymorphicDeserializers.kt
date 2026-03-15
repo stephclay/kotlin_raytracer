@@ -43,6 +43,7 @@ class ShapeDeserializer : PolymorphicDeserializer<ShapeDTO>("object") {
     override fun mapValue(p: JsonParser, type: String, value: JsonNode): ShapeDTO {
         return when (type) {
             "Sphere" -> p.codec.treeToValue(value, SphereDTO::class.java)
+            "Quad" -> p.codec.treeToValue(value, QuadDTO::class.java)
             else -> error("Unknown object node type: $type")
         }
     }

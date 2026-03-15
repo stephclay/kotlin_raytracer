@@ -25,7 +25,6 @@ fun Color.greenByte(): Byte = toByte(y)
  */
 fun Color.blueByte(): Byte = toByte(z)
 
-private val UNIT_INTERVAL = Interval(0, 1)
 private fun toByte(x: Double): Byte = (255.999 * UNIT_INTERVAL.clamp(gamma(x)))
     .toInt().toByte()
 

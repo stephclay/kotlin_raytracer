@@ -1,9 +1,7 @@
 package com.wombatsw.raytracing.model
 
-import kotlin.math.PI
-import kotlin.math.acos
-import kotlin.math.atan2
-import kotlin.math.sqrt
+import com.wombatsw.raytracing.EPSILON
+import kotlin.math.*
 
 /**
  * Shape base class
@@ -69,5 +67,59 @@ data class Sphere(val center: Point, val radius: Double, override val material: 
         val v = acos(-n.y) / PI
 
         return Pair(Intersection(ray, t, p, n, u, v), material)
+    }
+}
+
+/**
+ * Quadrilateral polygon
+ *
+ * @param[corner] One corner of the quad
+ * @param[u] First vector to adjacent vertex of q
+ * @param[v] Second vector to adjacent vertex of q
+ * @param material Material quad is made of
+ */
+data class Quad(val corner: Point, val u: Vector, val v: Vector, override val material: Material) : Shape(material) {
+    private val bbox: BoundingBox
+    private val n: Vector
+    private val w: Vector
+    private val d: Double
+
+    override fun boundingBox() = bbox
+
+    init {
+        val bbDiag1 = BoundingBox(corner, corner + u + v)
+        val bbDiag2 = BoundingBox(corner + u, corner + v)
+        bbox = bbDiag1 + bbDiag2
+
+        val norm = u.cross(v)
+        n = norm.normalize()
+        w = norm / norm.lengthSquared()
+        d = n.dot(corner)
+    }
+
+    override fun intersect(ray: Ray, tRange: Interval): Pair<Intersection, Material>? {
+        val nd = n.dot(ray.direction)
+
+        // If the ray is parallel to the plane, then no intersection
+        if (abs(d) < EPSILON) {
+            return null
+        }
+
+        // Plane intersection is out of range
+        val t = (d - ray.origin.dot(n)) / nd
+        if (!tRange.contains(t)) {
+            return null
+        }
+
+        val p = ray.at(t)
+        val planarHit = p - corner
+        val a = w.dot(planarHit.cross(v))
+        val b = w.dot(u.cross(planarHit))
+
+        if (!UNIT_INTERVAL.contains(a) || !UNIT_INTERVAL.contains(b)) {
+            return null
+        }
+
+        return Pair(Intersection(ray, t, p, n, a, b), material)
     }
 }

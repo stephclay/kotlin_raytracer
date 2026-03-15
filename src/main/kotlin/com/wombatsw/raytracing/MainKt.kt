@@ -12,6 +12,8 @@ fun main() {
         "src/main/resources/scenes/ThreeSpheres.yaml",
         "src/main/resources/scenes/CheckerSpheres.yaml",
         "src/main/resources/scenes/EarthScene.yaml",
+        "src/main/resources/scenes/QuadsScene.yaml",
+        "src/main/resources/scenes/SimpleLightScene.yaml",
         "src/main/resources/scenes/test.yaml"
     )
 

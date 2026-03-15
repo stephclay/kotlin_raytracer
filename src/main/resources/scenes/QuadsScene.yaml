@@ -1,0 +1,24 @@
+
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: [ 0, 0, 9 ]
+  defocusAngle: 0
+  background: [ 0.7, 0.8, 1.0 ]
+  fieldOfView: 80
+  viewportCenter: [ 0, 0, 0 ]
+  viewUp: [ 0, 1, 0 ]
+
+materials:
+  leftRed:     { Lambertian: { albedo: [ 1.0, 0.2, 0.2 ] } }
+  backGreen:   { Lambertian: { albedo: [ 0.2, 1.0, 0.2 ] } }
+  rightBlue:   { Lambertian: { albedo: [ 0.2, 0.2, 1.0 ] } }
+  upperOrange: { Lambertian: { albedo: [ 1.0, 0.5, 0.0 ] } }
+  lowerTeal:   { Lambertian: { albedo: [ 0.2, 0.8, 0.8 ] } }
+
+world:
+  - Quad: { corner: [ -3.0, -2.0, 5.0 ], u: [ 0.0, 0.0, -4.0 ], v: [ 0.0, 4.0,  0.0 ], material: leftRed }
+  - Quad: { corner: [ -2.0, -2.0, 0.0 ], u: [ 4.0, 0.0,  0.0 ], v: [ 0.0, 4.0,  0.0 ], material: backGreen }
+  - Quad: { corner: [  3.0, -2.0, 1.0 ], u: [ 0.0, 0.0,  4.0 ], v: [ 0.0, 4.0,  0.0 ], material: rightBlue }
+  - Quad: { corner: [ -2.0,  3.0, 1.0 ], u: [ 4.0, 0.0,  0.0 ], v: [ 0.0, 0.0,  4.0 ], material: upperOrange }
+  - Quad: { corner: [ -2.0, -3.0, 5.0 ], u: [ 4.0, 0.0,  0.0 ], v: [ 0.0, 0.0, -4.0 ], material: lowerTeal }

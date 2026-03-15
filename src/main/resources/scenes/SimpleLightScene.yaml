@@ -1,0 +1,20 @@
+
+camera:
+  cameraCenter: [ 26, 3, 6 ]
+  background: [ 0, 0, 0 ]
+  fieldOfView: 20
+  viewportCenter: [ 0, 2, 0 ]
+
+textures:
+  lightColor: { SolidColor: { color: [ 4, 4, 4 ] } }
+  perText: { Noise: { scale: 4 } }
+
+materials:
+  diffLight: { DiffuseLight: { texture: lightColor } }
+  perlinMat: { Lambertian: { texture: perText } }
+
+world:
+  - Sphere: { center: [ 0, -1000, 0 ], radius: 1000, material: perlinMat }
+  - Sphere: { center: [ 0,     2, 0 ], radius:    2, material: perlinMat }
+  - Sphere: { center: [ 0,     7 ,0 ], radius:    2, material: diffLight }
+  - Quad: { corner: [ 3, 1, -2 ], u: [ 2, 0, 0 ], v: [ 0, 2, 0 ], material: diffLight }
