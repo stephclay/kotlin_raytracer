@@ -1,7 +1,8 @@
 package com.wombatsw.raytracing.scene.dto
 
+import com.wombatsw.raytracing.model.Box
+import com.wombatsw.raytracing.model.Node
 import com.wombatsw.raytracing.model.Quad
-import com.wombatsw.raytracing.model.Shape
 import com.wombatsw.raytracing.model.Sphere
 import com.wombatsw.raytracing.scene.Ref
 import com.wombatsw.raytracing.scene.ResolutionContext
@@ -12,7 +13,7 @@ import com.wombatsw.raytracing.scene.Resolvable
  *
  * @property[material] The material [Ref] that the shape is made of
  */
-sealed class ShapeDTO(open val material: Ref<MaterialDTO>) : Resolvable<Shape>
+sealed class ShapeDTO(open val material: Ref<MaterialDTO>) : Resolvable<Node>
 
 /**
  * Sphere DTO
@@ -48,4 +49,22 @@ data class QuadDTO(
             ctx.resolveMaterial(material)
         )
 
+}
+
+/**
+ * Axis-aligned box DTO
+ *
+ * @param[corner1] One corner [Ref] of the box
+ * @param[corner2] The opposite corner [Ref] of the box
+ * @property[material] The material [Ref] that the shape is made of
+ */
+data class BoxDTO(val corner1: Ref<TripletDTO>, val corner2: Ref<TripletDTO>, override val material: Ref<MaterialDTO>) :
+    ShapeDTO(material) {
+    override fun resolve(ctx: ResolutionContext): Box {
+        return Box(
+            ctx.resolvePoint(corner1),
+            ctx.resolvePoint(corner2),
+            ctx.resolveMaterial(material)
+        )
+    }
 }

@@ -22,12 +22,13 @@ data class BVHNode(val nodes: Array<Node>, val start: Int, val end: Int) : Node 
 
     val left: Node
     val right: Node
+    val numNodes: Int
 
     init {
-        val span = end - start
-        require(span > 0) { "At least one node is required" }
+        numNodes = end - start
+        require(numNodes > 0) { "At least one node is required" }
 
-        val children = when (span) {
+        val children = when (numNodes) {
             1 -> Pair(nodes[start], nodes[start])
             2 -> Pair(nodes[start], nodes[start + 1])
             else -> {
@@ -50,6 +51,9 @@ data class BVHNode(val nodes: Array<Node>, val start: Int, val end: Int) : Node 
         val rayInterval = bbox.intersect(ray, tRange) ?: return null
 
         val leftIntersection = left.intersect(ray, rayInterval)
+        if (left === right) {
+            return leftIntersection
+        }
         val closestT = leftIntersection?.first?.t ?: rayInterval.max
 
         val rightIntersection = right.intersect(ray, Interval(rayInterval.min, closestT))

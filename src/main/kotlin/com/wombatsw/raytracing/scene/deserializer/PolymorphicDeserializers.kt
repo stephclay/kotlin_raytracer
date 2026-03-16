@@ -44,6 +44,7 @@ class ShapeDeserializer : PolymorphicDeserializer<ShapeDTO>("object") {
         return when (type) {
             "Sphere" -> p.codec.treeToValue(value, SphereDTO::class.java)
             "Quad" -> p.codec.treeToValue(value, QuadDTO::class.java)
+            "Box" -> p.codec.treeToValue(value, BoxDTO::class.java)
             else -> error("Unknown object node type: $type")
         }
     }

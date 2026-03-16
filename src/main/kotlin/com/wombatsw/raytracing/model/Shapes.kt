@@ -101,11 +101,11 @@ data class Quad(val corner: Point, val u: Vector, val v: Vector, override val ma
         val nd = n.dot(ray.direction)
 
         // If the ray is parallel to the plane, then no intersection
-        if (abs(d) < EPSILON) {
+        if (abs(nd) < EPSILON) {
             return null
         }
 
-        // Plane intersection is out of range
+        // Return if plane intersection is out of range
         val t = (d - ray.origin.dot(n)) / nd
         if (!tRange.contains(t)) {
             return null
@@ -122,4 +122,42 @@ data class Quad(val corner: Point, val u: Vector, val v: Vector, override val ma
 
         return Pair(Intersection(ray, t, p, n, a, b), material)
     }
+}
+
+/**
+ * Axis-aligned box
+ *
+ * @param[corner1] One corner of the box
+ * @param[corner2] The opposite corner of the box
+ * @property[material] The material that the shape is made of
+ */
+data class Box(val corner1: Point, val corner2: Point, override val material: Material) : Shape(material) {
+    private val faces: BVHNode
+
+    init {
+        val minX = min(corner1.x, corner2.x)
+        val minY = min(corner1.y, corner2.y)
+        val minZ = min(corner1.z, corner2.z)
+        val maxX = max(corner1.x, corner2.x)
+        val maxY = max(corner1.y, corner2.y)
+        val maxZ = max(corner1.z, corner2.z)
+
+        val dx = Vector(maxX - minX, 0, 0)
+        val dy = Vector(0, maxY - minY, 0)
+        val dz = Vector(0, 0, maxZ - minZ)
+
+        faces = BVHNode(
+            listOf(
+                Quad(Point(minX, minY, maxZ), dx, dy, material),  // Front
+                Quad(Point(maxX, minY, maxZ), -dz, dy, material), // Right
+                Quad(Point(maxX, minY, minZ), -dx, dy, material), // Back
+                Quad(Point(minX, minY, minZ), dz, dy, material),  // Left
+                Quad(Point(minX, maxY, maxZ), dx, -dz, material), // Top
+                Quad(Point(minX, minY, minZ), dx, dz, material)   // Bottom
+            )
+        )
+    }
+
+    override fun boundingBox(): BoundingBox = faces.boundingBox()
+    override fun intersect(ray: Ray, tRange: Interval): Pair<Intersection, Material>? = faces.intersect(ray, tRange)
 }

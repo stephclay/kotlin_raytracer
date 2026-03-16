@@ -1,0 +1,40 @@
+camera:
+  imageWidth: 400
+  imageHeight: 400
+  cameraCenter: [ 278, 278, -800 ]
+  background: black
+  fieldOfView: 40
+  viewportCenter: [ 278, 278, 0 ]
+  viewUp: [ 0, 1, 0 ]
+
+points:
+  lightQ: [ 343, 554, 332 ]
+  p0: [ 0, 0, 0 ]
+  pq: [ 555, 555, 555 ]
+  px: [ 555, 0, 0 ]
+  pz: [ 0, 0, 555 ]
+
+vectors:
+  lightU: [ -130, 0, 0 ]
+  lightV: [ 0, 0, -105 ]
+  vx: [ 555, 0, 0 ]
+  vy: [ 0, 555, 0 ]
+  vz: [ 0, 0, 555 ]
+  vu: [ -555, 0, 0 ]
+  vv: [ 0, 0, -555 ]
+
+materials:
+  matRed: { Lambertian: { albedo: [ .65, .05, .05 ] } }
+  matWhite: { Lambertian: { albedo: [ .73, .73, .73 ] } }
+  matGreen: { Lambertian: { albedo: [ .12, .45, .15 ] } }
+  diffLight: { DiffuseLight: { texture: { SolidColor: { color: [ 15, 15, 15 ] } } } }
+
+world:
+  - Quad: { corner: lightQ, u: lightU, v: lightV, material: diffLight }
+  - Quad: { corner: px, u: vy, v: vz, material: matGreen } # left wall
+  - Quad: { corner: p0, u: vy, v: vz, material: matRed } # right wall
+  - Quad: { corner: p0, u: vx, v: vz, material: matWhite } # floor
+  - Quad: { corner: pq, u: vu, v: vv, material: matWhite } # ceiling
+  - Quad: { corner: pz, u: vx, v: vy, material: matWhite } # back wall
+  - Box: { corner1: [ 130, 0, 65 ], corner2: [ 295, 165, 230 ], material: matWhite }
+  - Box: { corner1: [ 265, 0, 295 ], corner2: [ 430, 330, 460 ], material: matWhite }

@@ -45,4 +45,23 @@ class ShapeDTOTest {
         val tex = mat.texture as SolidColor
         assertEquals(Color(1.0, 0.0, 0.0), tex.color)
     }
+
+    @Test
+    fun `should resolve to BVHNode containing the sides of a box`() {
+        val ctx = ResolutionContext(SceneDTO())
+        val corner1Ref = InlineRef(TripletDTO(listOf(2.0, 2.0, 2.0)))
+        val corner2Ref = InlineRef(TripletDTO(listOf(4.0, 4.0, 4.0)))
+        val redColorRef = InlineRef(TripletDTO(listOf(1.0, 0.0, 0.0)))
+        val materialRef = InlineRef(LambertianDTO(redColorRef, null))
+        val dto = BoxDTO(corner1Ref, corner2Ref, materialRef)
+
+        val box = dto.resolve(ctx)
+
+        assertEquals(Point(2, 2, 2), box.corner1)
+        assertEquals(Point(4, 4, 4), box.corner2)
+
+        val mat = box.material as Lambertian
+        val tex = mat.texture as SolidColor
+        assertEquals(Color(1.0, 0.0, 0.0), tex.color)
+    }
 }
