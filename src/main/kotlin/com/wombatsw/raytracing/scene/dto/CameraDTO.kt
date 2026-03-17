@@ -22,13 +22,13 @@ import com.wombatsw.raytracing.scene.Resolvable
 data class CameraDTO(
     val imageWidth: Int = 100,
     val imageHeight: Int = 100,
-    val background: Ref<TripletDTO> = InlineRef(TripletDTO(listOf(0.0, 0.0, 0.0))),
-    val cameraCenter: Ref<TripletDTO> = InlineRef(TripletDTO(listOf(0.0, 0.0, 0.0))),
+    val background: Ref<TripletDTO> = InlineRef(TripletDTO(0.0, 0.0, 0.0)),
+    val cameraCenter: Ref<TripletDTO> = InlineRef(TripletDTO(0.0, 0.0, 0.0)),
     val defocusAngle: Double = 0.0,
     val focusDistance: Double = 10.0,
     val fieldOfView: Double = 90.0,
-    val viewportCenter: Ref<TripletDTO> = InlineRef(TripletDTO(listOf(0.0, 0.0, -1.0))),
-    val viewUp: Ref<TripletDTO> = InlineRef(TripletDTO(listOf(0.0, 1.0, 0.0)))
+    val viewportCenter: Ref<TripletDTO> = InlineRef(TripletDTO(0.0, 0.0, -1.0)),
+    val viewUp: Ref<TripletDTO> = InlineRef(TripletDTO(0.0, 1.0, 0.0))
 ) : Resolvable<Camera> {
     override fun resolve(ctx: ResolutionContext): Camera =
         Camera(

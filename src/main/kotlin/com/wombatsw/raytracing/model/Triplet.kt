@@ -1,7 +1,7 @@
 package com.wombatsw.raytracing.model
 
 import com.wombatsw.raytracing.EPSILON
-import com.wombatsw.raytracing.math.RandomUtils.Companion.randomDouble
+import com.wombatsw.raytracing.math.MathUtils.randomDouble
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.sqrt

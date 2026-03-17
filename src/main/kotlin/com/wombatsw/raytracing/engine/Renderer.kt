@@ -1,9 +1,8 @@
 package com.wombatsw.raytracing.engine
 
 import com.wombatsw.raytracing.EPSILON
-import com.wombatsw.raytracing.math.RandomUtils.Companion.randomDouble
+import com.wombatsw.raytracing.math.MathUtils.randomDouble
 import com.wombatsw.raytracing.model.*
-import com.wombatsw.raytracing.scene.DefaultColors.BLACK
 
 private val INITIAL_T_RANGE = Interval(EPSILON, Double.POSITIVE_INFINITY)
 
@@ -77,7 +76,7 @@ class Renderer(scene: Scene, antiAliasingSamples: Int, val maxDepth: Int) {
      */
     private fun getColor(ray: Ray, depth: Int): Color {
         if (depth <= 0) {
-            return BLACK.color
+            return Color(0, 0, 0)
         }
 
         val (intersection, material) = world.intersect(ray, INITIAL_T_RANGE) ?: return camera.background

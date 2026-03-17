@@ -25,7 +25,7 @@ class CameraDTOTest {
     @Test
     fun `should resolve to Camera with custom values`() {
         val ctx = ResolutionContext(SceneDTO())
-        val white = TripletDTO(listOf(1.0, 1.0, 1.0));
+        val white = TripletDTO(1.0, 1.0, 1.0)
         val dto = CameraDTO(200, 200, InlineRef(white))
 
         val camera = dto.resolve(ctx)

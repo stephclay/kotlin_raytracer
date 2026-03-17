@@ -10,8 +10,8 @@ class ShapeDTOTest {
     @Test
     fun `should resolve to Sphere`() {
         val ctx = ResolutionContext(SceneDTO())
-        val centerRef = InlineRef(TripletDTO(listOf(2.0, 2.0, 2.0)))
-        val redColorRef = InlineRef(TripletDTO(listOf(1.0, 0.0, 0.0)))
+        val centerRef = InlineRef(TripletDTO(2.0, 2.0, 2.0))
+        val redColorRef = InlineRef(TripletDTO(1.0, 0.0, 0.0))
         val materialRef = InlineRef(LambertianDTO(redColorRef, null))
         val dto = SphereDTO(centerRef, 3.0, materialRef)
 
@@ -28,10 +28,10 @@ class ShapeDTOTest {
     @Test
     fun `should resolve to Quad`() {
         val ctx = ResolutionContext(SceneDTO())
-        val cornerRef = InlineRef(TripletDTO(listOf(2.0, 2.0, 2.0)))
-        val uRef = InlineRef(TripletDTO(listOf(0.0, 2.0, 0.0)))
-        val vRef = InlineRef(TripletDTO(listOf(2.0, 0.0, 0.0)))
-        val redColorRef = InlineRef(TripletDTO(listOf(1.0, 0.0, 0.0)))
+        val cornerRef = InlineRef(TripletDTO(2.0, 2.0, 2.0))
+        val uRef = InlineRef(TripletDTO(0.0, 2.0, 0.0))
+        val vRef = InlineRef(TripletDTO(2.0, 0.0, 0.0))
+        val redColorRef = InlineRef(TripletDTO(1.0, 0.0, 0.0))
         val materialRef = InlineRef(LambertianDTO(redColorRef, null))
         val dto = QuadDTO(cornerRef, uRef, vRef, materialRef)
 
@@ -49,9 +49,9 @@ class ShapeDTOTest {
     @Test
     fun `should resolve to BVHNode containing the sides of a box`() {
         val ctx = ResolutionContext(SceneDTO())
-        val corner1Ref = InlineRef(TripletDTO(listOf(2.0, 2.0, 2.0)))
-        val corner2Ref = InlineRef(TripletDTO(listOf(4.0, 4.0, 4.0)))
-        val redColorRef = InlineRef(TripletDTO(listOf(1.0, 0.0, 0.0)))
+        val corner1Ref = InlineRef(TripletDTO(2.0, 2.0, 2.0))
+        val corner2Ref = InlineRef(TripletDTO(4.0, 4.0, 4.0))
+        val redColorRef = InlineRef(TripletDTO(1.0, 0.0, 0.0))
         val materialRef = InlineRef(LambertianDTO(redColorRef, null))
         val dto = BoxDTO(corner1Ref, corner2Ref, materialRef)
 

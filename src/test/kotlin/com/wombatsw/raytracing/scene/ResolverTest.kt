@@ -10,9 +10,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class ResolverTest {
-    val tripletDTOX = TripletDTO(listOf(1.0, 0.0, 0.0))
-    val tripletDTOY = TripletDTO(listOf(0.0, 1.0, 0.0))
-    val tripletDTOZ = TripletDTO(listOf(0.0, 0.0, 1.0))
+    val tripletDTOX = TripletDTO(1.0, 0.0, 0.0)
+    val tripletDTOY = TripletDTO(0.0, 1.0, 0.0)
+    val tripletDTOZ = TripletDTO(0.0, 0.0, 1.0)
     val tripletX = tripletFromDTO(tripletDTOX)
     val tripletY = tripletFromDTO(tripletDTOY)
     val tripletZ = tripletFromDTO(tripletDTOZ)
@@ -32,7 +32,7 @@ class ResolverTest {
     fun `Color should resolve from inline Ref`() {
         val ctx = createContext()
 
-        val color = ctx.resolveColor(InlineRef(TripletDTO(listOf(0.0, 1.0, 0.0))))
+        val color = ctx.resolveColor(InlineRef(TripletDTO(0.0, 1.0, 0.0)))
         assertEquals(tripletY, color)
     }
 
@@ -64,7 +64,7 @@ class ResolverTest {
     fun `Vector should resolve from inline Ref`() {
         val ctx = createContext()
 
-        val vector = ctx.resolveVector(InlineRef(TripletDTO(listOf(0.0, 0.0, 1.0))))
+        val vector = ctx.resolveVector(InlineRef(TripletDTO(0.0, 0.0, 1.0)))
         assertEquals(tripletZ, vector)
     }
 
@@ -88,7 +88,7 @@ class ResolverTest {
     fun `Point should resolve from inline Ref`() {
         val ctx = createContext()
 
-        val point = ctx.resolvePoint(InlineRef(TripletDTO(listOf(1.0, 0.0, 0.0))))
+        val point = ctx.resolvePoint(InlineRef(TripletDTO(1.0, 0.0, 0.0)))
         assertEquals(tripletX, point)
     }
 

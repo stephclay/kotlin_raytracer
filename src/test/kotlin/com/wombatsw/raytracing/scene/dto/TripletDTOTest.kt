@@ -9,9 +9,9 @@ class TripletDTOTest {
     @Test
     fun `TripletDTO should resolve to a Triplet`() {
         val ctx = ResolutionContext(SceneDTO())
-        val dto = TripletDTO(listOf(1.0, 2.0, 3.0))
+        val dto = TripletDTO(1.0, 2.0, 3.0)
 
-        val triplet = dto.resolve(ctx);
+        val triplet = dto.resolve(ctx)
 
         assertNotNull(triplet)
         assertEquals(1.0, triplet.x)

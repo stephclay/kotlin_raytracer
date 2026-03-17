@@ -1,6 +1,6 @@
 package com.wombatsw.raytracing.model
 
-import com.wombatsw.raytracing.math.RandomUtils.Companion.randomDouble
+import com.wombatsw.raytracing.math.MathUtils.randomDouble
 import com.wombatsw.raytracing.model.Triplet.Companion.randomUnitVector
 import kotlin.math.min
 import kotlin.math.pow
@@ -93,7 +93,7 @@ data class Dielectric(val refractionIndex: Double) : Material() {
  * @property[fuzz] The fuzziness factor of the metal
  */
 data class Metal(val albedo: Color, val fuzz: Double) : Material() {
-    val fuzzAdj = min(1.0, fuzz)
+    private val fuzzAdj = min(1.0, fuzz)
 
     override fun scatter(intersection: Intersection): ScatterData? {
         var reflected = intersection.ray.direction

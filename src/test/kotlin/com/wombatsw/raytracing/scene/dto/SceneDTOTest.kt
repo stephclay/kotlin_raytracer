@@ -24,8 +24,8 @@ class SceneDTOTest {
     }
 
     fun createSceneDTO(): SceneDTO {
-        val centerRef = InlineRef(TripletDTO(listOf(2.0, 2.0, 2.0)))
-        val redColorRef = InlineRef(TripletDTO(listOf(1.0, 0.0, 0.0)))
+        val centerRef = InlineRef(TripletDTO(2.0, 2.0, 2.0))
+        val redColorRef = InlineRef(TripletDTO(1.0, 0.0, 0.0))
         val materialRef = InlineRef(LambertianDTO(redColorRef, null))
         val sphereRef = InlineRef(SphereDTO(centerRef, 3.0, materialRef))
         return SceneDTO(world = listOf(sphereRef))

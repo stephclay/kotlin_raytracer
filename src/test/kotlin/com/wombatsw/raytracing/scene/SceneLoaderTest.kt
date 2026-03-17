@@ -21,9 +21,9 @@ class SceneLoaderTest {
         assertEquals(1, scene.vectors.size)
         assertEquals(1, scene.colors.size)
 
-        assertEquals(TripletDTO(listOf(1.0, 2.0, 3.0)), scene.points["camCenter"])
-        assertEquals(TripletDTO(listOf(4.0, 5.0, 6.0)), scene.vectors["up"])
-        assertEquals(TripletDTO(listOf(7.0, 8.0, 9.0)), scene.colors["color1"])
+        assertEquals(TripletDTO(1.0, 2.0, 3.0), scene.points["camCenter"])
+        assertEquals(TripletDTO(4.0, 5.0, 6.0), scene.vectors["up"])
+        assertEquals(TripletDTO(7.0, 8.0, 9.0), scene.colors["color1"])
     }
 
     @Test
@@ -31,11 +31,11 @@ class SceneLoaderTest {
         val scene = loadScene("/scenes/textureTest.yaml")
         assertEquals(5, scene.textures.size)
 
-        val blue = TripletDTO(listOf(0.0, 0.0, 1.0))
+        val blue = TripletDTO(0.0, 0.0, 1.0)
         assertEquals(SolidColorDTO(InlineRef(blue)), scene.textures["solidBlue"])
 
         val checker1 = scene.textures["checkerColor"] as CheckerTextureDTO
-        val red = TripletDTO(listOf(1.0, 0.0, 0.0))
+        val red = TripletDTO(1.0, 0.0, 0.0)
         val expected1 = CheckerTextureDTO(0.25, null, null, NamedRef("purple"), InlineRef(red))
         assertEquals(expected1, checker1)
 
@@ -56,17 +56,17 @@ class SceneLoaderTest {
         val scene = loadScene("/scenes/materialTest.yaml")
         assertEquals(5, scene.materials.size)
 
-        val red = TripletDTO(listOf(1.0, 0.0, 0.0))
+        val red = TripletDTO(1.0, 0.0, 0.0)
         assertEquals(LambertianDTO(InlineRef(red), null), scene.materials["lambertianAlbedo"])
 
-        val green = SolidColorDTO(InlineRef(TripletDTO(listOf(0.0, 1.0, 0.0))))
+        val green = SolidColorDTO(InlineRef(TripletDTO(0.0, 1.0, 0.0)))
         assertEquals(LambertianDTO(null, InlineRef(green)), scene.materials["lambertianTexture"])
 
         assertEquals(DielectricDTO(2.0), scene.materials["dielectric"])
 
         assertEquals(MetalDTO(NamedRef("blue"), 3.0), scene.materials["metal"])
 
-        val blue = SolidColorDTO(InlineRef(TripletDTO(listOf(0.0, 0.0, 1.0))))
+        val blue = SolidColorDTO(InlineRef(TripletDTO(0.0, 0.0, 1.0)))
         assertEquals(DiffuseLightDTO(InlineRef(blue)), scene.materials["light"])
     }
 

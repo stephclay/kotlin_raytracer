@@ -1,8 +1,8 @@
 package com.wombatsw.raytracing.math
 
-import com.wombatsw.raytracing.math.RandomUtils.Companion.randomDouble
-import com.wombatsw.raytracing.math.RandomUtils.Companion.randomInUnitDisc
-import com.wombatsw.raytracing.math.RandomUtils.Companion.randomInt
+import com.wombatsw.raytracing.math.RandomUtils.randomDouble
+import com.wombatsw.raytracing.math.RandomUtils.randomInUnitDisc
+import com.wombatsw.raytracing.math.RandomUtils.randomInt
 import kotlin.test.Test
 import kotlin.test.assertContains
 
@@ -35,7 +35,7 @@ class RandomUtilsTest {
     fun `random within unit disc should stay within default bounds`() {
         repeat(100) {
             val result = randomInUnitDisc()
-            val radius = result.first * result.first + result.second * result.second
+            val radius = result.x * result.x + result.y * result.y
             assertContains(0.0..<1.0, radius)
         }
     }

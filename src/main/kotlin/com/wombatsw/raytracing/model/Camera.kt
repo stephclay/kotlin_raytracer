@@ -1,6 +1,7 @@
 package com.wombatsw.raytracing.model
 
-import com.wombatsw.raytracing.math.RandomUtils.Companion.randomInUnitDisc
+import com.wombatsw.raytracing.math.MathUtils.randomInUnitDisc
+import com.wombatsw.raytracing.math.toRadians
 import kotlin.math.tan
 
 /**
@@ -40,7 +41,7 @@ data class Camera(
     private val defocusDiscV: Vector
 
     init {
-        val h = tan(Math.toRadians(fieldOfView) / 2.0)
+        val h = tan(fieldOfView.toRadians() / 2.0)
         val viewportHeight = 2.0 * h * focusDistance
         val viewportWidth = viewportHeight * imageWidth.toDouble() / imageHeight.toDouble()
 
@@ -60,7 +61,7 @@ data class Camera(
 
         pixelOrigin = viewportUpperLeft + pixelDU / 2 + pixelDV / 2
 
-        val defocusRadius = focusDistance * tan(Math.toRadians(defocusAngle) / 2.0)
+        val defocusRadius = focusDistance * tan(defocusAngle.toRadians() / 2.0)
         defocusDiscU = viewBasisU * defocusRadius
         defocusDiscV = viewBasisV * -defocusRadius
     }
@@ -77,7 +78,7 @@ data class Camera(
             cameraCenter
         } else {
             val v = randomInUnitDisc()
-            cameraCenter + defocusDiscU * v.first + defocusDiscV * v.second
+            cameraCenter + defocusDiscU * v.x + defocusDiscV * v.y
         }
         return Ray(rayOrigin, point - rayOrigin)
     }

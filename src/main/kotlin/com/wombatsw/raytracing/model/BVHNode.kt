@@ -7,7 +7,7 @@ package com.wombatsw.raytracing.model
  * @property[start] The start of the array for this node, inclusive
  * @property[end] The start of the array for this node, exclusive
  */
-data class BVHNode(val nodes: Array<Node>, val start: Int, val end: Int) : Node {
+class BVHNode(val nodes: Array<Node>, val start: Int, val end: Int) : Node {
     /**
      * Root node constructor
      *

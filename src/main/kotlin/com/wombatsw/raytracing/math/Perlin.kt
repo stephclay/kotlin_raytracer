@@ -23,7 +23,7 @@ class Perlin {
 
     private fun permute(perm: IntArray) {
         for (i in perm.size - 1 downTo 1) {
-            val target: Int = RandomUtils.randomInt(0, i)
+            val target: Int = MathUtils.randomInt(0, i)
             val tmp = perm[i]
             perm[i] = perm[target]
             perm[target] = tmp

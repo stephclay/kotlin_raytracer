@@ -32,21 +32,22 @@ class SceneDTO(
         return Scene(camera.resolve(ctx), objList)
     }
 
-    override fun toString(): String {
-        fun listToString(list: Collection<*>) =
-            list.joinToString(separator = ",\n    ", prefix = "\n    ")
+    private fun listToString(list: Collection<*>) =
+        list.joinToString(separator = ",\n    ", prefix = "\n    ")
 
-        fun mapToString(map: Map<String, *>) =
-            listToString(map.map { (k, v) -> "$k - $v" })
+    private fun mapToString(map: Map<String, *>) =
+        listToString(map.map { (k, v) -> "$k - $v" })
 
-        return "Config(\n" +
-                "  camera=$camera,\n" +
-                "  colors=${mapToString(colors)},\n" +
-                "  vectors=${mapToString(vectors)},\n" +
-                "  points=${mapToString(points)},\n" +
-                "  textures=${mapToString(textures)},\n" +
-                "  materials=${mapToString(materials)},\n" +
-                "  objects=${mapToString(objects)},\n" +
-                "  world=${listToString(world)})"
-    }
+    override fun toString(): String =
+        buildString {
+            append("Config(\n")
+            append("  camera=$camera,\n")
+            append("  colors=${mapToString(colors)},\n")
+            append("  vectors=${mapToString(vectors)},\n")
+            append("  points=${mapToString(points)},\n")
+            append("  textures=${mapToString(textures)},\n")
+            append("  materials=${mapToString(materials)},\n")
+            append("  objects=${mapToString(objects)},\n")
+            append("  world=${listToString(world)})")
+        }
 }

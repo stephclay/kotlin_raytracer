@@ -1,7 +1,9 @@
 package com.wombatsw.raytracing.scene.dto
 
 import com.wombatsw.raytracing.model.*
-import com.wombatsw.raytracing.scene.*
+import com.wombatsw.raytracing.scene.InlineRef
+import com.wombatsw.raytracing.scene.NamedRef
+import com.wombatsw.raytracing.scene.ResolutionContext
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -9,12 +11,12 @@ import kotlin.test.assertIs
 
 class TextureDTOTest {
     val colorDTOs = listOf(
-        TripletDTO(listOf(1.0, 0.0, 0.0)),
-        TripletDTO(listOf(0.0, 1.0, 0.0)),
-        TripletDTO(listOf(0.0, 0.0, 1.0)),
-        TripletDTO(listOf(1.0, 1.0, 0.0)),
-        TripletDTO(listOf(0.0, 1.0, 1.0)),
-        TripletDTO(listOf(1.0, 0.0, 1.0)),
+        TripletDTO(1.0, 0.0, 0.0),
+        TripletDTO(0.0, 1.0, 0.0),
+        TripletDTO(0.0, 0.0, 1.0),
+        TripletDTO(1.0, 1.0, 0.0),
+        TripletDTO(0.0, 1.0, 1.0),
+        TripletDTO(1.0, 0.0, 1.0),
     )
     val colors = colorDTOs.map {
         Color(it.list[0], it.list[1], it.list[2])

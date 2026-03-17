@@ -51,7 +51,7 @@ data class Interval(val min: Double, val max: Double) {
      * @param[x] the value to clamp
      * @return The clamped value
      */
-    fun clamp(x: Double) = max(min, min(max, x))
+    fun clamp(x: Double) = x.coerceIn(min, max)
 
     /**
      * Expand the interval at each end by the provided delta
