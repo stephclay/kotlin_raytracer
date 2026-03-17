@@ -1,12 +1,12 @@
 package com.wombatsw.raytracing.math
 
-import com.wombatsw.raytracing.math.RandomUtils.randomDouble
-import com.wombatsw.raytracing.math.RandomUtils.randomInUnitDisc
-import com.wombatsw.raytracing.math.RandomUtils.randomInt
+import com.wombatsw.raytracing.math.MathUtils.randomDouble
+import com.wombatsw.raytracing.math.MathUtils.randomInUnitDisc
+import com.wombatsw.raytracing.math.MathUtils.randomInt
 import kotlin.test.Test
 import kotlin.test.assertContains
 
-class RandomUtilsTest {
+class MathUtilsTest {
     @Test
     fun `random ints should stay within specified bounds`() {
         repeat(100) {
