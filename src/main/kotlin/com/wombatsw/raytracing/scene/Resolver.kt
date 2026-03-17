@@ -66,12 +66,10 @@ class ResolutionContext(sceneDTO: SceneDTO) {
      * @return A [Map] from color name to its corresponding [TripletDTO]
      */
     private fun colorsWithDefaults(sceneDTO: SceneDTO): Map<String, TripletDTO> {
-        val colorsWithDefaults: Map<String, TripletDTO> = buildMap {
+        return buildMap {
             putAll(DefaultColors.colorMap)
             putAll(sceneDTO.colors)
         }
-
-        return colorsWithDefaults
     }
 }
 

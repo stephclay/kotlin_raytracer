@@ -19,7 +19,7 @@ class TextureDTOTest {
         TripletDTO(1.0, 0.0, 1.0),
     )
     val colors = colorDTOs.map {
-        Color(it.list[0], it.list[1], it.list[2])
+        Color(it.x, it.y, it.z)
     }
 
     @Test

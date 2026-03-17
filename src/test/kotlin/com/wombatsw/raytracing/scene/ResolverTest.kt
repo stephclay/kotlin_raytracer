@@ -18,7 +18,7 @@ class ResolverTest {
     val tripletZ = tripletFromDTO(tripletDTOZ)
 
     private fun tripletFromDTO(tripletDTO: TripletDTO): Triplet =
-        Triplet(tripletDTO.list[0], tripletDTO.list[1], tripletDTO.list[2])
+        Triplet(tripletDTO.x, tripletDTO.y, tripletDTO.z)
 
     @Test
     fun `Color should resolve from named Ref`() {
