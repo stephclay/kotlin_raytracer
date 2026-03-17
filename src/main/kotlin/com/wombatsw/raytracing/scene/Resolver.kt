@@ -1,10 +1,7 @@
 package com.wombatsw.raytracing.scene
 
 import com.wombatsw.raytracing.model.*
-import com.wombatsw.raytracing.scene.dto.MaterialDTO
-import com.wombatsw.raytracing.scene.dto.SceneDTO
-import com.wombatsw.raytracing.scene.dto.TextureDTO
-import com.wombatsw.raytracing.scene.dto.TripletDTO
+import com.wombatsw.raytracing.scene.dto.*
 
 
 /**
@@ -49,12 +46,14 @@ class ResolutionContext(sceneDTO: SceneDTO) {
     val points: Resolver<TripletDTO, Point> = Resolver(sceneDTO.points, "point")
     val textures: Resolver<TextureDTO, Texture> = Resolver(sceneDTO.textures, "texture")
     val materials: Resolver<MaterialDTO, Material> = Resolver(sceneDTO.materials, "material")
+    val objects: Resolver<ShapeDTO, Shape> = Resolver(sceneDTO.objects, "object")
 
     fun resolveColor(ref: Ref<TripletDTO>): Color = resolve(ref, colors)
     fun resolveVector(ref: Ref<TripletDTO>): Vector = resolve(ref, vectors)
     fun resolvePoint(ref: Ref<TripletDTO>): Point = resolve(ref, points)
     fun resolveTexture(ref: Ref<TextureDTO>): Texture = resolve(ref, textures)
     fun resolveMaterial(ref: Ref<MaterialDTO>): Material = resolve(ref, materials)
+    fun resolveObject(ref: Ref<ShapeDTO>): Shape = resolve(ref, objects)
 
     private fun <D : Resolvable<T>, T> resolve(ref: Ref<D>, resolver: Resolver<D, T>): T {
         return resolver.resolve(this, ref)

@@ -1,8 +1,8 @@
 package com.wombatsw.raytracing.scene.dto
 
 import com.wombatsw.raytracing.model.Box
-import com.wombatsw.raytracing.model.Node
 import com.wombatsw.raytracing.model.Quad
+import com.wombatsw.raytracing.model.Shape
 import com.wombatsw.raytracing.model.Sphere
 import com.wombatsw.raytracing.scene.Ref
 import com.wombatsw.raytracing.scene.ResolutionContext
@@ -13,7 +13,7 @@ import com.wombatsw.raytracing.scene.Resolvable
  *
  * @property[material] The material [Ref] that the shape is made of
  */
-sealed class ShapeDTO(open val material: Ref<MaterialDTO>) : Resolvable<Node>
+sealed class ShapeDTO(open val material: Ref<MaterialDTO>) : Resolvable<Shape>
 
 /**
  * Sphere DTO

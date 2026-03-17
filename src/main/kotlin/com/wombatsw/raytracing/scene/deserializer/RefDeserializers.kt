@@ -21,7 +21,15 @@ class RefDeserializer : JsonDeserializer<Ref<*>>(), ContextualDeserializer {
         val type = property?.type
             ?: ctxt.contextualType
             ?: error("Cannot determine Ref type")
-        val valueType = type.containedType(0) ?: error("Ref must be parameterized")
+
+        // If type is List<Ref<X>>, containedType(0) gives Ref<X>, not X
+        // So, walk down the chain until a Ref is found.
+        // If type.rawClass is a Ref, then this just returns "type"
+        val refType = generateSequence(type) { it.containedType(0) }
+            .firstOrNull { it.rawClass == Ref::class.java }
+            ?: error("Cannot find Ref type in $type")
+
+        val valueType = refType.containedType(0) ?: error("Ref must be parameterized")
         return TypedRefDeserializer(valueType)
     }
 

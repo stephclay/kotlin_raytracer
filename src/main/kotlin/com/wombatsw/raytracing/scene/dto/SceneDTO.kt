@@ -1,6 +1,7 @@
 package com.wombatsw.raytracing.scene.dto
 
 import com.wombatsw.raytracing.model.Scene
+import com.wombatsw.raytracing.scene.Ref
 import com.wombatsw.raytracing.scene.ResolutionContext
 import com.wombatsw.raytracing.scene.Resolvable
 
@@ -13,6 +14,7 @@ import com.wombatsw.raytracing.scene.Resolvable
  * @property[points] The point map
  * @property[textures] The texture map
  * @property[materials] The material map
+ * @property[objects] The object map
  * @property[world] The world object list
  */
 class SceneDTO(
@@ -22,10 +24,11 @@ class SceneDTO(
     val points: Map<String, TripletDTO> = mapOf(),
     val textures: Map<String, TextureDTO> = mapOf(),
     val materials: Map<String, MaterialDTO> = mapOf(),
-    val world: List<ShapeDTO> = listOf()
+    val objects: Map<String, ShapeDTO> = mapOf(),
+    val world: List<Ref<ShapeDTO>> = listOf()
 ) : Resolvable<Scene> {
     override fun resolve(ctx: ResolutionContext): Scene {
-        val objList = world.map { it.resolve(ctx) }
+        val objList = world.map { ctx.resolveObject(it) }
         return Scene(camera.resolve(ctx), objList)
     }
 
@@ -43,6 +46,7 @@ class SceneDTO(
                 "  points=${mapToString(points)},\n" +
                 "  textures=${mapToString(textures)},\n" +
                 "  materials=${mapToString(materials)},\n" +
+                "  objects=${mapToString(objects)},\n" +
                 "  world=${listToString(world)})"
     }
 }

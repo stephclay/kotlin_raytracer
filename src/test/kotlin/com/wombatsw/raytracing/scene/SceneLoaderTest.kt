@@ -71,11 +71,21 @@ class SceneLoaderTest {
     }
 
     @Test
+    fun `Objects should load from file`() {
+        val scene = loadScene("/scenes/objectTest.yaml")
+        assertEquals(1, scene.objects.size)
+
+        val expected = SphereDTO(NamedRef("c1"), 2.0, NamedRef("mat"))
+        assertEquals(expected, scene.objects["sphere1"])
+    }
+
+    @Test
     fun `World objects should load from file`() {
         val scene = loadScene("/scenes/worldTest.yaml")
         assertEquals(1, scene.world.size)
 
-        val sphere = scene.world[0] as SphereDTO
+        val sphereRef = scene.world[0] as InlineRef
+        val sphere = sphereRef.value as SphereDTO
         assertEquals(SphereDTO(NamedRef("c1"), 2.0, NamedRef("mat")), sphere)
     }
 
